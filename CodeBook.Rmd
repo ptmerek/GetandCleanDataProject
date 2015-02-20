@@ -53,7 +53,7 @@ http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartpho
 2. The feature data frame has 561 rows with 2 columns. The activity_label data frame has 6 rows with 2 columns. 
 3. A vector of feature names was created which is used to add descriptive variable names.
 
-#### Read into R the raw data files  
+#### Read into R the raw data files, merge training and test data sets
 1. Use read.delim() command to read data into R data frames 
 2. Use colnames() to create descriptive column names for each data frame
 3. Use the previously created feature name vector as the descriptive column names for the test_x and train_x data frames using the colnames() command
@@ -65,15 +65,13 @@ Note: the merge command reorders the data frame by the key variable. thus, once 
 6. Use rbind() to combine the single test and train files into a single data frame
 7. Interim result, a single data frame with 10,299 observations (rows) and 564 varibles (columns) retaining a raw form of un-summarized values
 
-#### Create data frame to be used for discovery and analytical purposes   
+#### Create final tidy data set
 1. Use the melt() command to combe  all the activity names into a single variable called "variable"
-2. Using dplyr and chaining, filter the rows to exclude any variable name that does not include mean, Mean, std or STD, subset to exclude the activity number variable, group by the remaining factors, then summarize using the sum() function. 
-3. Interim result, a single data frame of 15,480 observations and 4 variables 
-4. Combine subject number, activity and value, summarize again but with the mean() function. 
-5. Final result, a "tidy" data frame meeting the course requirements with only 180 observations and 3 variables - subject number, activity and mean. This assumes the requirement allowed mean of mean and mean of standard deviation variables. 
+2. Using dplyr and chaining, filter the rows to exclude any variable name that does not include mean, Mean, std or STD, subset to exclude the activity number variable, group by the remaining factors, then summarize using the mean() function. 
+3. Final result, a "tidy" data frame meeting the course requirements with only 15,480 observations and 4 variables - subject number, activity, variable (measurement) and mean. 
 
 #### Export Tidy Data Set  
-1. Using write.table create a CVS file of the final output of 180 rows and 3 columns, one variable for each combination of the subject number, activity and mean of the measurements for the activity
+1. Using write.table  create "MyData.csv" file.
 
 #### Final clean up  
 1. Remove interim data sets and stored variables using the rm() command
