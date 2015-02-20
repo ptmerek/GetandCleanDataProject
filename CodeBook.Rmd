@@ -1,0 +1,81 @@
+---
+title: "CodeBook.Rmd"
+subtitle: "Getting and Cleaning Data Course Project"
+author: "ptmerek"
+date: "February 19, 2015"
+output: html_document
+---
+
+# Data  
+The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. 
+
+The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain. See 'features_info.txt' for more details. 
+
+#### For each record:  
+
+- Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration
+- Triaxial Angular velocity from the gyroscope 
+- A 561-feature vector with time and frequency domain variables 
+- An activity label and index number 
+- An identifier of the subject who carried out the experiment
+
+Link to the official dataset description.  
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones  
+
+## Variables  
+- Activity number - number index for each activity name, values are 1-6
+- Activity name -  activities performed while measurements were taken, values are walking, walking upstairs, walking downstairs, sitting, standing, laying
+- Subject number - number index representing each individual subject, values 1-30
+- Features - a list of 561 individual measurements taken using both the gyroscope and accelerometer, includes directly measured and calculated values; only items with mean or standard deviation values were used for this project
+
+
+## Transformations  
+
+#### Setup  
+1. The following libraries are required to complete the data collection and transformation described below: 
+  1. RCurl - Mac OS based HTTPS library
+  2. stringr - used for detecing the mean and sd character strings in the feaures variable
+  3. dplyr - used for data manipulation and chaining
+  4. reshape2 - used to form the data frame ito a "long" form
+
+2. The working directory was set to a local folder
+
+#### Collect Data  
+1. The raw compressed data files were collected from the URL provided in the course project description, which is "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip".
+2. The compressed file was downloaded (download.file()) and unzipped (unzip())   
+3. The result is; 
+  1. UCI HAR Dataset folder 5 test files 
+  2. Two sub-folders names test and train 
+  3. The test and train folders each have 3 txt files and one additional folder with 9 detailed measurement data txt files that were not used in this exercise.
+
+#### Create the metadata   
+1. Using read.delim() command, read into R both the features and activity label data files. Descriptive column names were added to each data frame. 
+2. The feature data frame has 561 rows with 2 columns. The activity_label data frame has 6 rows with 2 columns. 
+3. A vector of feature names was created which is used to add descriptive variable names.
+
+#### Read into R the raw data files  
+1. Use read.delim() command to read data into R data frames 
+2. Use colnames() to create descriptive column names for each data frame
+3. Use the previously created feature name vector as the descriptive column names for the test_x and train_x data frames using the colnames() command
+4. Use cbind() command to combine the columns of the data frames for both the test and train data sets
+5. Use the merge() command with the key set to "activity number" to combine the descriptive activity name to the test and train data frames.  
+
+Note: the merge command reorders the data frame by the key variable. thus, once used, the rows are no longer in assumed the original common observation sequence so must be the last command in the series.  
+
+6. Use rbind() to combine the single test and train files into a single data frame
+7. Interim result, a single data frame with 10,299 observations (rows) and 564 varibles (columns) retaining a raw form of un-summarized values
+
+#### Create data frame to be used for discovery and analytical purposes   
+1. Use the melt() command to combe  all the activity names into a single variable called "variable"
+2. Using dplyr and chaining, filter the rows to exclude any variable name that does not include mean, Mean, std or STD, subset to exclude the activity number variable, group by the remaining factors, then summarize using the sum() function. 
+3. Interim result, a single data frame of 15,480 observations and 4 variables 
+4. Combine subject number, activity and value, summarize again but with the mean() function. 
+5. Final result, a "tidy" data frame meeting the course requirements with only 180 observations and 3 variables - subject number, activity and mean. This assumes the requirement allowed mean of mean and mean of standard deviation variables. 
+
+#### Export Tidy Data Set  
+1. Using write.table create a CVS file of the final output of 180 rows and 3 columns, one variable for each combination of the subject number, activity and mean of the measurements for the activity
+
+#### Final clean up  
+1. Remove interim data sets and stored variables using the rm() command
+
+

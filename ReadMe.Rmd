@@ -1,0 +1,39 @@
+---
+title: "Readme.Rmd"
+subtitle: "Getting and Cleaning Data Course Project"
+author: "ptmerek"
+date: "February 19, 2015"
+output: html_document
+---
+
+This read me describes the parts of the Getting and Cleaning Data course project.
+
+
+#### Files
+
+- 1. Mydata.csv - the output of the analysis that includes the activity measurements' mean of the mean and standard deviation variables for each subject and totals 180 records of 3 variables. The three variavles are subject number, activity and mean.  
+  
+- 2. run_analysis.R - the program explained in the Codebook.Rmd. Output of this program is Mydata.csv.  
+  
+- 3. A URL for the github repo where all files are stored.  
+  
+- 4. A CodeBook.Rmd that describes the data, the variables and the data transformation process that results in a tidy data set from the Human Activity Recognition Using Smartphone Dataset, Version 1.0.   
+  
+
+Link to the official dataset description.  
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones      
+       
+  
+#### Attribution  
+
+==================================================================  
+
+Human Activity Recognition Using Smartphones Dataset Version 1.0  
+  
+==================================================================  
+  
+[1] Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012  
+
+This dataset is distributed AS-IS and no responsibility implied or explicit can be addressed to the authors or their institutions for its use or misuse. Any commercial use is prohibited.  
+
+Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012.  
